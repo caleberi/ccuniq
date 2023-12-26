@@ -1,0 +1,42 @@
+EXAMPLES
+     Assuming a file named cities.txt with the following content:
+
+           Madrid
+           Lisbon
+           Madrid
+
+     The following command reports three different lines since identical elements are not adjacent:
+
+           $ uniq -u cities.txt
+           Madrid
+           Lisbon
+           Madrid
+
+     Sort the file and count the number of identical lines:
+
+           $ sort cities.txt | uniq -c
+                   1 Lisbon
+                   2 Madrid
+
+     Assuming the following content for the file cities.txt:
+
+           madrid
+           Madrid
+           Lisbon
+
+     Show repeated lines ignoring case sensitiveness:
+
+           $ uniq -d -i cities.txt
+           madrid
+
+     Same as above but showing the whole group of repeated lines:
+
+           $ uniq -D -i cities.txt
+           madrid
+           Madrid
+
+     Report the number of identical lines ignoring the first character of every line:
+
+           $ uniq -s 1 -c cities.txt
+                   2 madrid
+                   1 Lisbon
