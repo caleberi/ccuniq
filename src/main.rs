@@ -71,19 +71,26 @@ fn main() {
         None
     };
 
-    if !config.get_flag_status() {
-        for (line, _) in &dictionary {
-            let data = format!("{}\n", *line);
-            buffer.extend_from_slice(data.as_bytes())
-        }
-        _ = buffer.pop(); // remove the terminating "\n"
-    }
-
+    handle_default_operation(&config, &dictionary, &mut buffer);
     handle_count_operation(&config, &mut buffer, &dictionary);
     handle_repeat_operation(&config, &mut buffer, &dictionary);
     handle_unique_operation(config, &mut buffer, dictionary);
 
     write_outstream(outstream, buffer);
+}
+
+fn handle_default_operation(
+    config: &config::Config<'_>,
+    dictionary: &HashMap<&str, isize>,
+    buffer: &mut Vec<u8>,
+) {
+    if !config.get_flag_status() {
+        for (line, _) in dictionary {
+            let data = format!("{}\n", *line);
+            buffer.extend_from_slice(data.as_bytes())
+        }
+        _ = buffer.pop(); // remove the terminating "\n"
+    }
 }
 
 fn handle_unique_operation(
